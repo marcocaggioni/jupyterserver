@@ -1,0 +1,38 @@
+ARG BASE_CONTAINER=jupyter/scipy-notebook
+FROM $BASE_CONTAINER
+
+LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"    
+
+USER root
+
+RUN apt-get update && \
+    apt-get install -yq latexmk \
+    python3-sphinx
+
+USER $NB_UID
+
+# Install Python 3 packages
+RUN conda install --quiet --yes \
+    'pims' \
+    'trackpy' \
+    'voila' \
+    'lmfit' \
+    'pybroom' \
+    'appmode' \
+    'moviepy' \
+    'openpyxl' \
+    'opencv' \
+    'rise' \
+    'bokeh' \
+    'sphinx' \
+    'nbsphinx' \
+    'sphinx_rtd_theme' \
+    'openpyxl' && \
+    conda clean --all -f -y && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}"
+    
+    RUN pip install git+https://github.com/rheopy/rheofit.git && \
+    conda install -c conda-forge jupyter_contrib_nbextensions
+    
+WORKDIR $HOME
