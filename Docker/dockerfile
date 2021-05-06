@@ -27,10 +27,10 @@ RUN conda install --quiet --yes \
     'sphinx' \
     'nbsphinx' \
     'sphinx_rtd_theme' \
-    'openpyxl' && \
-    conda clean --all -f -y && \
-    fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}"
+    'openpyxl'
+RUN conda clean --all -f -y
+RUN fix-permissions "${CONDA_DIR}"
+RUN fix-permissions "/home/${NB_USER}"
 
 RUN pip install git+https://github.com/rheopy/rheofit.git && \
     conda install -c conda-forge jupyter_contrib_nbextensions
