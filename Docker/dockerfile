@@ -22,7 +22,6 @@ RUN conda install --quiet --yes \
     'moviepy' \
     'openpyxl' \
     'opencv' \
-    'rise' \
     'bokeh' \
     'sphinx' \
     'nbsphinx' \
